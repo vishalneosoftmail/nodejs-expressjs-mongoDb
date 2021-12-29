@@ -1,8 +1,6 @@
 let { employees } = require("../data");
 const mongoose = require("mongoose");
 
-const uploadFile = require("../middleware/upload");
-
 const employeeModel = require("../model/employeeModel.js");
 
 const getEmployees = async (req, res) => {
@@ -52,7 +50,6 @@ const createEmployee = async (req, res) => {
   });
 
   try {
-    // await uploadFile(req, res);
     await newEmp.save();
 
     res.status(201).json({ success: true, newEmp });
@@ -93,37 +90,10 @@ const deleteEmployee = async (req, res) => {
   }
 };
 
-const getEmployeeDepartmentWise = async (req, res) => {
-  const empdept = req.params.empdept;
-  try {
-    const emp = await employeeModel.find(
-      { empdept: empdept },
-      "empId empName email"
-    );
-
-    res.status(200).json({ success: true, emp });
-  } catch (error) {
-    res.status(404).json({ success: false, message: error.message });
-  }
-};
-
-const getEmployeeRoleWise = async (req, res) => {
-  const role = req.params.role;
-  try {
-    const emp = await employeeModel.find({ role: role }, "empId empName email");
-
-    res.status(200).json({ success: true, emp });
-  } catch (error) {
-    res.status(404).json({ success: false, message: error.message });
-  }
-};
-
 module.exports = {
   getEmployees,
   getEmployee,
   createEmployee,
   updateEmployee,
   deleteEmployee,
-  getEmployeeDepartmentWise,
-  getEmployeeRoleWise,
 };
