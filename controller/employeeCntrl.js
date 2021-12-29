@@ -4,7 +4,6 @@ const mongoose = require("mongoose");
 const employeeModel = require("../model/employeeModel.js");
 
 const getEmployees = async (req, res) => {
-  //   res.status(200).json({ success: true, data: employees });
   try {
     const emp = await employeeModel.find();
 
@@ -41,7 +40,6 @@ const getEmployee = async (req, res) => {
 // };
 
 const createEmployee = async (req, res) => {
-  //   const { empId, empName, empdept, mobile, email, role } = req.body;
   const newEmp = new employeeModel({
     empId: req.body.empId,
     empName: req.body.empName,
